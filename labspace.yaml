@@ -5,8 +5,8 @@ description: |
 sections:
   - title: Introduction
     contentPath: ./docs/01-introduction.md
-  - title: Running a containerized service
-    contentPath: ./docs/02-running-a-containerized-service.md
+  - title: Adding containerized services
+    contentPath: ./docs/02-adding-containerized-services.md
   - title: Adding dev tools
     contentPath: ./docs/03-adding-dev-tools.md
   - title: Running tests
