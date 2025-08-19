@@ -8,7 +8,7 @@ app.engine("handlebars", engine());
 app.set("view engine", "handlebars");
 app.set("views", __dirname + "/views");
 
-app.get("/", (req, res) => {
+app.get("/", async (req, res) => {
     res.render(
         "home", 
         { 
