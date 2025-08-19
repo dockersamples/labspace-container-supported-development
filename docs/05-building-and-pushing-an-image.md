@@ -92,8 +92,10 @@ Now that we have a Dockerfile, let's build it and push it to Docker Hub!
 3. You're ready to build your image now. Build the container image using the following `docker build` command:
 
     ```bash
-    docker build -t $DOCKER_USERNAME/memes-r-us --load .
+    docker build -t $DOCKER_USERNAME/memes-r-us --sbom=true --provenance=mode=max --load .
     ```
+
+    The `--sbom=true` and `--provenance=mode=max` flags tell the builder to automatically create a SBOM (Software Bill of Materials) and build provenance. These are helpful to document both what's in the image and how it was built.
 
     **NOTE:** The `--load` flag will "load" the image into the local container image store. This is only required because we're doing the build in a Labspace environment. If running directly on your machine, it'll load automatically.
 

@@ -13,5 +13,5 @@ sections:
     contentPath: ./docs/04-running-tests.md
   - title: Building and pushing an image
     contentPath: ./docs/05-building-and-pushing-an-image.md
-  - title: Securing the image
-    contentPath: ./docs/06-securing-the-image.md
+  - title: Securing our image
+    contentPath: ./docs/06-securing-our-image.md
