@@ -54,7 +54,7 @@ Running a PostgreSQL database in a container isn't too difficult.
 
     After running the previous command, you should see output similar to the following:
 
-    ```plaintext
+    ```plaintext no-copy-button
     CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
     ```
 
@@ -68,7 +68,7 @@ Running a PostgreSQL database in a container isn't too difficult.
    
     With that, you should now see output similar to the following:
 
-    ```plaintext
+    ```plaintext no-copy-button
     CONTAINER ID   IMAGE                COMMAND                  CREATED         STATUS                     PORTS     NAMES
     f8c7b5660668   postgres:17-alpine   "docker-entrypoint.s…"   2 seconds ago   Exited (1) 2 seconds ago             postgres
     ```
@@ -85,7 +85,7 @@ Running a PostgreSQL database in a container isn't too difficult.
 
     In the log output, you should see something similar to the following:
 
-    ```plaintext
+    ```plaintext no-copy-button
    Error: Database is uninitialized and superuser password is not specified.
        You must specify POSTGRES_PASSWORD to a non-empty value for the
        superuser. For example, "-e POSTGRES_PASSWORD=password" on "docker run".
@@ -107,7 +107,7 @@ Running a PostgreSQL database in a container isn't too difficult.
    
     When you run this command, you will get an error that looks similar to the following:
 
-    ```plaintext
+    ```plaintext no-copy-button
     docker: Error response from daemon: Conflict. The container name "/postgres" is already in use by container "f8c7b5660668324140f773b0a54a723bfe069a4d71ba231ca2ec8c4f33ddd314". You have to remove (or rename) that container to be able to reuse that name.
     ```
 
@@ -236,7 +236,7 @@ Let's give it a try! We'll create the schema files and then update our database 
 
     After entering the password (`secret`), you should see output similar to the following:
 
-    ```plaintext
+    ```plaintext no-copy-button
       id |                            url                            | creation_date 
     ----+------------------------------------------------------------+---------------
       1 | https://media.giphy.com/media/kyLYXonQYYfwYDIeZl/giphy.gif | 2025-08-19
@@ -335,7 +335,7 @@ That's where Docker Compose comes in! With Compose, we can create a `compose.yam
 
     The `-d` will run everything in the background. But, you should see output indicating the containers have started:
 
-    ```plaintext
+    ```plaintext no-copy-button
     [+] Running 2/2
     ✔ Network project_default  Created            0.0s 
     ✔ Container project-db-1   Started            0.2s 

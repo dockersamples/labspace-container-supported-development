@@ -33,7 +33,7 @@ With Docker Scout, we can easily analyze our image using the policies specified 
 
     If you have an organization configured, you're likely to see output similar to the following:
 
-    ```plaintext
+    ```plaintext no-copy-button
     Policy status  FAILED  (6/7 policies met)
 
       Status │                   Policy                    │           Results            
@@ -70,7 +70,7 @@ With Docker Scout, we can easily analyze our image using the policies specified 
 
     The output should now show:
 
-    ```plaintext
+    ```plaintext no-copy-button
     Policy status  SUCCESS  (7/7 policies met)
     ```
 
