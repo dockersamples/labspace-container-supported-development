@@ -41,7 +41,7 @@ To start the app, complete the following steps:
 
     Eventually, you should see the following output:
 
-    ```plaintext
+    ```plaintext no-copy-button
     Server is running on port 3000
     ```
 
