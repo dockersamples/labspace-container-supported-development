@@ -1,9 +1,5 @@
 # 👋 Welcome!
 
-Welcome to this Labspace focused on teaching you, in a hands-on way, about the various concepts of tools of Docker.
-
-## 📋 Learning objectives
-
 In this Labspace, you're going to gain familiarity with Docker and many of its core components. Specifically, you'll get to do the following:
 
 - Learn about the role of containers and images
@@ -15,38 +11,26 @@ In this Labspace, you're going to gain familiarity with Docker and many of its c
 
 The new AI-focused aspects of Docker's tooling will not be covered in this overview. That will be covered in another Labspace.
 
-## 💻 App overview
 
-The application we will be working with is Memes-R-Us, a fun website that simply displays memes and a welcome message.
 
-Throughout this lab, you will be making changes to the application.
+## 💻 The Memes-R-Us website
 
-To start the app, complete the following steps:
+For the remainder of this lab, you are a member of the Memes-R-Us development team. Congrats! 🎉
 
-1. If you have started VS Code yet in the panel to the right, click the **Load VS Code here** button.
+The Memes-R-Us app is a simple website that displays memes and a welcome message.
 
-2. In a terminal, install the Node dependencies by running the following command:
+![Memes-R-Us website](/docs/images/memes-r-us.png)
 
-    ```sh
-    npm install
-    ```
 
-3. Start the app by running the following command:
 
-    ```sh
-    npm run dev
-    ```
+## Your task
 
-    This is going to start the app in "dev mode", which means file changes will cause the app to automatically reload.
+Your task is fairly simple - update the website with a new message and containerize the app.
 
-    Eventually, you should see the following output:
+But, in order to make this update and verify it works, you'll need to complete the following tasks:
 
-    ```plaintext no-copy-button
-    Server is running on port 3000
-    ```
+1. Setup your development environment to run the app
+2. Make the update to site.
+3. Containerize the app and prepare it for deployment
 
-4. Open your browser to http://localhost:3000. You should see the Memes-R-Us website!
-
-## Next steps
-
-Now that you have the site up and running and a few changes applied to it, we're ready for the next feature!
+Don't worry! You'll have help all along the way. Let's get to it!

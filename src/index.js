@@ -1,5 +1,7 @@
 const express = require("express");
 const { engine } = require("express-handlebars");
+const { getRandomMeme } = require("./db");
+require('dotenv').config({ quiet: true });
 
 const app = express();
 
@@ -13,7 +15,7 @@ app.get("/", async (req, res) => {
         "home", 
         { 
             message: "Whalecome to Docker!",
-            memeUrl: "https://media.giphy.com/media/yoJC2A59OCZHs1LXvW/giphy.gif"
+            memeUrl: await getRandomMeme(),
         }
     );
 });
