@@ -1,3 +1,5 @@
+# The files here are those normally ignored in a git repo, as well
+# as files that will be created by someone completing the Labspace.
 node_modules
 .env
 db
