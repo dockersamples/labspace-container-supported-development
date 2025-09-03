@@ -1,6 +1,6 @@
-title: Docker Overview
+title: Container-supported development
 description: |
-  An introduction to the various concepts of Docker
+  Run databases, debug tools, and more across your entire team with minimal setup.
 
 sections:
   - title: Introduction
