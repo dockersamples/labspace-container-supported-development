@@ -1,22 +1,34 @@
-# Starting the dev environment
+# Running a containerized database
 
-The app (for right now) isn't using containers. You'll make this change as your first task. 
+The Memes-R-Us website uses a PostgreSQL database to store the available memes. Therefore, to run the app in development, you will need a local database.
 
-The Memes-R-Us website is fairly simple. It is a Node app with a PostgreSQL database.
+But, it's often not enough to have only a database, as you need a user to connect with, schemas, and initial data.
 
-```mermaid
-flowchart LR
-    Node[Node app] --> PostgreSQL[PostgreSQL database]
-```
+In this section, you will do the following:
+
+1. Start a PostgreSQL database
+2. Configure the application to connect to it
+3. Write and share schema files to auto-populate the database
+
+By the end of this section, you will have a working application!
+
+
+> [!IMPORTANT]
+> Getting started with containers can be daunting. For many developers, the easiest approach is to 
+> start with the services their app depends on (databases, caches, etc.). 
+>
+> Later, if they decide to run the app itself in a container during development, they can certainly do so.
 
 
 
-## Starting the app
+## ▶️ Starting the app
 
 If you haven't done so, open the VS Code environment in the panel on the right.
 
 > [!NOTE]
-> All commands in this Labspace must be run in a terminal in Labspace-provided VS Code editor.
+> All commands in this Labspace must run inside a terminal within the Labspace-provided VS Code editor.
+>
+> For convenience, you can press the Play button to run the command.
 
 1. Install the Node dependencies by running the following command:
 
@@ -32,9 +44,7 @@ If you haven't done so, open the VS Code environment in the panel on the right.
 
     This will start the app using `nodemon`, which will automatically restart the app when changes are made.
 
-3. Open your browser to http://localhost:3000 to see if the app launched.
-
-    Instead of the app, you should see the following error:
+3. Open your browser to http://localhost:3000. Instead of the app, you should see the following error:
 
     ```plaintext no-copy-button
     Error: connect ECONNREFUSED 127.0.0.1:5432
@@ -44,12 +54,16 @@ If you haven't done so, open the VS Code environment in the panel on the right.
         at async /home/coder/project/src/index.js:17:22
     ```
 
-    This is because the app is trying to connect to a postgres database, but it isn't up and running yet.
+    This error occurs because the app is trying to connect to the postgres database, which isn't running yet.
+
+    Let's fix that!
 
 
-## ▶️ Starting PostgreSQL
+## ▶️ Starting a PostgreSQL container
 
-Containers make it incredibly wasy to run a PostgreSQL database. Let's see how easy!
+Containers allow you to simply run PostgreSQL. No installation required!
+
+In order to run a container, you need a container image. Fortunately, there is an [official postgres](https://hub.docker.com/_/postgres) image.
 
 1. Use the `docker run` command in a terminal to start a PostgreSQL container:
 
@@ -67,7 +81,7 @@ Containers make it incredibly wasy to run a PostgreSQL database. Let's see how e
 
     The output that you see is the full container ID.
 
-2. To view the running containers, you use the `docker ps` command:
+2. To see a list of running containers, use the `docker ps` command:
 
     ```console
     docker ps
@@ -83,29 +97,13 @@ Containers make it incredibly wasy to run a PostgreSQL database. Let's see how e
     Hooray! It's running! 
     
     > [!IMPORTANT]
-    > This single command helps illustrate the power of a container. Containers make running apps easy. **No installs. No setup. Just run.**
+    > To emphasize, this single `docker run` command helps illustrate the power of a container. Containers make running things easy. **No installs. No setup. Just run.**
 
-3. Connect to the database using the `psql` tool:
+## 📞 Connect the app to the database
 
-    ```bash
-    psql -h localhost -U postgres
-    ```
+Now that the container is up and running, it's time to update the app to connect to it.
 
-    When you're prompted for the password, enter the password we defined in the command:
-
-    ```bash
-    secret
-    ```
-
-    You should now be connected! It worked! 🎉
-
-5. Disconnect from the database by running the following command from inside the `psql` tool:
-
-    ```bash
-    \q
-    ```
-
-6. To configure the app to connect to the database, create a `.env` file with the following content:
+1. The app uses a `.env` file to configure the database settings. Create a `.env` file with the following content:
 
     ```dotenv save-as=.env
     PGHOST=localhost
@@ -114,8 +112,10 @@ Containers make it incredibly wasy to run a PostgreSQL database. Let's see how e
     PGPASSWORD=secret
     PGDATABASE=postgres
     ```
+
+    This will tell the app to connect to `localhost:5432` (remember, we're exposing the container's port) and using the default username with the password we supplied.
     
-7. With the database running and the app configured, the app should work, right? But, opening the site now gives us another error:
+2. With the database running and the app configured, the app should work, right? But, opening [the site](http://localhost:3000) now gives another error:
 
     ```plaintext
     error: relation "memes" does not exist
@@ -130,9 +130,9 @@ Containers make it incredibly wasy to run a PostgreSQL database. Let's see how e
 
 ## ➕ Populating the database
 
-Docker's database container images provide the ability to load "seed" files into the container, making it easy to create tables and provide data at startup.
+Docker's database container images provide the ability to load "seed" files into the container during first launch, making it easy to create tables and provide data at startup.
 
-In the following steps, you are going to create the schema files and then update the database to run them at startup.
+In the following steps, you are going to create the schema files and provide them to the database container using a feature called [bind mounts](https://docs.docker.com/engine/storage/bind-mounts/).
 
 1. In the project, create a folder named `db`. You can either do so using the IDE directly or by running the following command:
 
@@ -150,7 +150,7 @@ In the following steps, you are going to create the schema files and then update
     );
     ```
 
-    This will create a simple table named `memes` that will have three columns - the ID of the meme, its URL, and a timestamp for when it was created.
+    This will create a table named `memes` with three columns - the ID of the meme, its URL, and a creation timestamp.
 
 3. In the `db` folder, create a file named `02-initial-data.sql` with the following contents:
 
@@ -161,9 +161,9 @@ In the following steps, you are going to create the schema files and then update
         ('https://media.giphy.com/media/6AFldi5xJQYIo/giphy.gif');
     ```
 
-    This will insert three memes into the table, specifying only the URLs. The ID and creation timestamps are automatically generated for us by the database.
+    This will insert three memes into the table, specifying only the URLs. The ID and creation timestamps are automatically generated by the database.
 
-4. Before updating the database container to use these files, you will need to remove the current database container. Do so with the `docker rm` command:
+4. Bind mounts can't be added to a container after it's been started. Therefore, you'll need to restart the container. First remove the existing container with the `docker rm` command:
 
     ```bash
     docker rm -f postgres
@@ -171,7 +171,7 @@ In the following steps, you are going to create the schema files and then update
 
     The `-f` flag will stop the database before removing the container.
 
-5. Use the following command to share the schema files from your workspace into the container (this is called bind mounting):
+5. Use the following command to share the schema files from your workspace into the container with a bind mount:
 
     ```bash
     docker run -d --name=postgres \
@@ -181,11 +181,11 @@ In the following steps, you are going to create the schema files and then update
         postgres:17-alpine
     ```
 
-    This command adds the `-v ./db:docker-entrypoint-initdb.d` flag, which tells Docker to share the local `./db` directory into the container at `/docker-entrypoint-initdb.d`.
+    This command adds the `-v ./db:docker-entrypoint-initdb.d` flag to specify the bind mount. This causes Docker to share the local `./db` directory into the container at `/docker-entrypoint-initdb.d`.
 
-    The `/docker-entrypoint-initdb.d` directory is a special directory the container is designed to look at when starting up. If there are files there, it'll automatically import them into the database.
+    The `/docker-entrypoint-initdb.d` directory is a special directory the container inspects when starting up. If there are files there, it'll automatically import them into the database.
 
-6. To confirm the data exists in the database, use the following `psql` command:
+6. Once the container is running, confirm the data exists in the database, use the following `psql` command:
 
     ```bash
     psql -h localhost -U postgres -c "SELECT * FROM memes"
@@ -204,67 +204,10 @@ In the following steps, you are going to create the schema files and then update
 
     Hooray! The database is populated and ready to go!
 
-4. Go back to the app (at http://localhost:3000) and validate it works now!
+4. Go back to the app (at http://localhost:3000) and validate it works now.
 
 
 
-## 🐳 Using Compose to make everything easier
-
-Hopefully, you're starting to see how Docker makes it easy to run services. No need to install anything. Very simple configuration. It just works!
-
-But, if your app starts to have quite a few services, telling team members to run a bunch of `docker run` commands is a lot of work.
-
-That's where Docker Compose comes in! With Compose, you can create a `compose.yaml` that defines everything.
-
-1. Before you create the Compose file, remove the running database container:
-
-    ```bash
-    docker rm -f postgres
-    ```
-
-2. At the root of the project, create a file named `compose.yaml` with the following contents:
-
-    ```yaml save-as=compose.yaml
-    services:
-      db:
-        image: postgres:17-alpine
-        ports:
-          - 5432:5432
-        volumes:
-          - ./db:/docker-entrypoint-initdb.d
-        environment:
-          POSTGRES_PASSWORD: secret
-    ```
-
-    You should probably recognize this has almost all of the same config from the previous `docker run` commands, but just in a different format.
-
-3. Start the app now by using `docker compose`:
-
-    ```bash
-    docker compose up -d
-    ```
-
-    The `-d` will run everything in the background. But, you should see output indicating the containers have started:
-
-    ```plaintext no-copy-button
-    [+] Running 2/2
-    ✔ Network project_default  Created            0.0s 
-    ✔ Container project-db-1   Started            0.2s 
-    ```
-
-4. To prove it's working, run the following commands to delete all of the memes in the database and then add a new one:
-
-    ```bash
-    psql -h localhost -U postgres -c "DELETE FROM memes"
-    ```
-
-    And add another one into the database:
-
-    ```bash
-    psql -h localhost -U postgres -c "INSERT INTO memes (url) VALUES ('https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif')"
-    ```
-
-5. Refresh the browser several times and you should only see a single celebratory meme.
 
 ## 🐳 Docker Recap
 

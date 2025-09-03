@@ -5,13 +5,11 @@ description: |
 sections:
   - title: Introduction
     contentPath: ./docs/01-introduction.md
-  - title: Starting the dev environment
-    contentPath: ./docs/02-starting-the-dev-environment.md
+  - title: Running a containerized database
+    contentPath: ./docs/02-running-a-containerized-database.md
+  - title: Making life easier with Compose
+    contentPath: ./docs/03-making-life-easier-with-compose.md
   - title: Adding dev tools
-    contentPath: ./docs/03-adding-dev-tools.md
-  - title: Running tests
-    contentPath: ./docs/04-running-tests.md
-  - title: Building and pushing an image
-    contentPath: ./docs/05-building-and-pushing-an-image.md
-  - title: Securing our image
-    contentPath: ./docs/06-securing-our-image.md
+    contentPath: ./docs/04-adding-dev-tools.md
+  - title: Recap
+    contentPath: ./docs/05-recap.md
