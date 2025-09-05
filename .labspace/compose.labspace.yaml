@@ -1,0 +1,25 @@
+########################################################################
+# This file does not currently work. But... it would be nice if it eventually
+# could! Then, this file could be published as a standalone artifact to
+# run a Labspace.
+########################################################################
+
+include:
+  - path:
+    - oci://dockersamples/labspace-base
+    overrides:
+      services:
+        configurator:
+          environment:
+            PROJECT_CLONE_URL: https://github.com/mikesir87/labspace-container-supported-development
+
+        workspace:
+          image: dockersamples/labspace-workspace-java
+          models:
+            gemma3:
+              model_var: OPENAI_MODEL
+              endpoint_var: OPENAI_BASE_URL
+
+models:
+  gemma3:
+    model: ai/gemma3:4B-F16

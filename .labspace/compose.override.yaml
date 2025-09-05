@@ -1,0 +1,18 @@
+services:
+  configurator:
+    environment:
+      PROJECT_CLONE_URL: https://github.com/mikesir87/labspace-container-supported-development
+
+  workspace:
+    image: dockersamples/labspace-workspace-java
+    models:
+      gemma3:
+        model_var: OPENAI_MODEL
+        endpoint_var: OPENAI_BASE_URL
+    ports: !override
+      - 8080:8080
+      - 8085:8085
+
+models:
+  gemma3:
+    model: ai/gemma3:4B-F16
