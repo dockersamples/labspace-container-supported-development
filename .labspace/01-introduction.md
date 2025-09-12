@@ -1,6 +1,8 @@
 # 👋 Welcome!
 
-This Labspace is designed to help you learn about using containers to run your app's dependent services. These might include:
+This Labspace is designed to help you **learn about using containers to run your app's dependent services**. 
+
+These might include:
 
 - **Databases** - run [PostgreSQL](https://hub.docker.com/_/postgres), [MySQL](https://hub.docker.com/_/mysql), [Mongo](https://hub.docker.com/_/mongo), and more
 - **Message queues** - run [RabbitMQ](https://hub.docker.com/_/rabbitmq), [Redis](https://hub.docker.com/_/redis), [Kafka](https://hub.docker.com/r/apache/kafka), and more
