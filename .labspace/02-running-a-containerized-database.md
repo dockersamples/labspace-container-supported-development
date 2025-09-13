@@ -117,7 +117,7 @@ Now that the container is up and running, it's time to update the app to connect
     
 2. With the database running and the app configured, the app should work, right? But, opening [the site](http://localhost:3000) now gives another error:
 
-    ```plaintext
+    ```plaintext no-copy-button
     error: relation "memes" does not exist
         at /home/coder/project/node_modules/pg-pool/index.js:45:11
         at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
