@@ -1,4 +1,4 @@
 services:
   configurator:
     environment:
-      PROJECT_CLONE_URL: https://github.com/mikesir87/labspace-container-supported-development
+      PROJECT_CLONE_URL: https://github.com/dockersamples/labspace-container-supported-development
