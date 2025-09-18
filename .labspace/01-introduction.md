@@ -19,7 +19,7 @@ For the remainder of this lab, you are a member of the Memes-R-Us development te
 
 The Memes-R-Us app is a simple website that displays memes and a welcome message.
 
-![Memes-R-Us website](/docs/images/memes-r-us.png)
+![Memes-R-Us website](/.labspace/images/memes-r-us.png)
 
 In order to run it though for development, you need a database. You'll learn how to launch that in a container, as well as how to add additional developer tools.
 
