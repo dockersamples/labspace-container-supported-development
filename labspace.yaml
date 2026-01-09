@@ -1,3 +1,8 @@
+metadata:
+  id: dockersamples/labspace-container-supported-development
+  sourceRepo: github.com/dockersamples/labspace-container-supported-development
+  contentVersion: abcd123 # Will be replaced during release process
+
 title: Container-supported development
 description: |
   Run databases, debug tools, and more across your entire team with minimal setup.
