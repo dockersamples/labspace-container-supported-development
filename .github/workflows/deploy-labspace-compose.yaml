@@ -1,5 +1,8 @@
 name: Publish Labspace
 
+env:
+  DOCKERHUB_REPO: dockersamples/labspace-container-supported-development
+
 on:
   push:
     branches:
