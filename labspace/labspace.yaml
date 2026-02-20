@@ -9,12 +9,12 @@ description: |
 
 sections:
   - title: Introduction
-    contentPath: ./.labspace/01-introduction.md
+    contentPath: 01-introduction.md
   - title: Running a containerized database
-    contentPath: ./.labspace/02-running-a-containerized-database.md
+    contentPath: 02-running-a-containerized-database.md
   - title: Making life easier with Compose
-    contentPath: ./.labspace/03-making-life-easier-with-compose.md
+    contentPath: 03-making-life-easier-with-compose.md
   - title: Adding dev tools
-    contentPath: ./.labspace/04-adding-dev-tools.md
+    contentPath: 04-adding-dev-tools.md
   - title: Recap
-    contentPath: ./.labspace/05-recap.md
+    contentPath: 05-recap.md
