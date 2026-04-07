@@ -68,7 +68,7 @@ In order to run a container, you need a container image. Fortunately, there is a
 1. Use the `docker run` command in a terminal to start a PostgreSQL container:
 
     ```bash terminal-id=labspace2
-    docker run -d --name=postgres -p 5432:5432 -e POSTGRES_PASSWORD=secret postgres:17-alpine
+    docker run -d --name=postgres -p 5432:5432 -e POSTGRES_PASSWORD=secret postgres:18-alpine
     ```
 
    This command is using the following flags:
@@ -77,7 +77,7 @@ In order to run a container, you need a container image. Fortunately, there is a
     - `--name postgres` - give this container a specific name. Normally, this flag is skipped and an auto-generated name is used. But, it helps in workshop settings.
     - `-p 5432:5432` - this "publishes" the port, allowing us to access the database running inside the container's isolated environment
     - `-e POSTGRES_PASSWORD=secret` - this container requires configuration to set the admin password. This flag sets that as an environment variable.
-    - `postgres:17-alpine` - this is the name of the container image to run
+    - `postgres:18-alpine` - this is the name of the container image to run
 
     The output that you see is the full container ID.
 
@@ -91,7 +91,7 @@ In order to run a container, you need a container image. Fortunately, there is a
 
     ```plaintext no-copy-button
     CONTAINER ID   IMAGE                COMMAND                  CREATED         STATUS         PORTS                                         NAMES
-    6ca807b3208e   postgres:17-alpine   "docker-entrypoint.s…"   2 seconds ago   Up 2 seconds   0.0.0.0:5432->5432/tcp, [::]:5432->5432/tcp   postgres
+    6ca807b3208e   postgres:18-alpine   "docker-entrypoint.s…"   2 seconds ago   Up 2 seconds   0.0.0.0:5432->5432/tcp, [::]:5432->5432/tcp   postgres
     ```
 
     Hooray! It's running! 
@@ -178,7 +178,7 @@ In the following steps, you are going to create the schema files and provide the
         -p 5432:5432 \
         -v ./db:/docker-entrypoint-initdb.d \
         -e POSTGRES_PASSWORD=secret \
-        postgres:17-alpine
+        postgres:18-alpine
     ```
 
     This command adds the `-v ./db:docker-entrypoint-initdb.d` flag to specify the bind mount. This causes Docker to share the local `./db` directory into the container at `/docker-entrypoint-initdb.d`.

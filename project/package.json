@@ -11,11 +11,11 @@
   "license": "Apache-2.0",
   "description": "",
   "dependencies": {
-    "dotenv": "^17.2.1",
-    "express": "^5.1.0",
-    "express-handlebars": "^8.0.3",
-    "handlebars": "^4.7.8",
-    "pg": "^8.16.3"
+    "dotenv": "^17.4.1",
+    "express": "^5.2.1",
+    "express-handlebars": "^8.0.7",
+    "handlebars": "^4.7.9",
+    "pg": "^8.20.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.10"

@@ -14,7 +14,7 @@ Since you already have a `compose.yaml` file, you only need to add a new service
     ```yaml
     services:
       pgadmin:
-        image: dpage/pgadmin4:9.6.0
+        image: dpage/pgadmin4:9.14.0
         ports:
           - 5050:80
         environment:
@@ -26,7 +26,8 @@ Since you already have a `compose.yaml` file, you only need to add a new service
           - db
     ```
 
-    **NOTE:** If you copy the snippet above, remove the first line (the `services` field) as it already exists in your file.
+    > [!NOTE]
+    > If you copy the snippet above, remove the first line (the `services` field) as it already exists in your file.
 
     Looking at the `compose.yaml` file, you should now have a single `services` field with two defined services - `db` and `pgadmin`.
 

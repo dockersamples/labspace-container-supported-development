@@ -22,7 +22,7 @@ That's where Docker Compose comes in! With Compose, you can create a `compose.ya
     ```yaml save-as=compose.yaml
     services:
       db:
-        image: postgres:17-alpine
+        image: postgres:18-alpine
         ports:
           - 5432:5432
         volumes:
