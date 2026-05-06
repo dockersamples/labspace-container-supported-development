@@ -13,7 +13,7 @@ That's where Docker Compose comes in! With Compose, you can create a `compose.ya
 
 1. Since you will be launching the containers using Compose, go ahead and remove the container first:
 
-    ```bash
+    ```bash terminal-id=labspace2
     docker rm -f postgres
     ```
 
@@ -39,7 +39,7 @@ Now that you have the Compose file, it's time to start it up!
 
 1. Start the database by using the `docker compose up` command:
 
-    ```bash
+    ```bash terminal-id=labspace2
     docker compose up -d
     ```
 
@@ -53,7 +53,7 @@ Now that you have the Compose file, it's time to start it up!
 
 2. If you want to view the logs for the containers, use the `docker compose logs` command:
 
-    ```bash
+    ```bash terminal-id=labspace2
     docker compose logs
     ```
 
@@ -69,5 +69,5 @@ Now that you have the Compose file, it's time to start it up!
     > [!TIP]
     > You can add the `-f` flag to "follow" the logs, allowing you to stream the log output as it's being generated.
 
-3. Open your app (at [http://localhost:3000](http://localhost:3000)) and validate it still works.
+3. Open your app (at :tabLink[http://localhost:3000]{href="http://localhost:3000" id="app"}) and validate it still works.
 

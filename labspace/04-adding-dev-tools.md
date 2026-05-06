@@ -33,7 +33,7 @@ Since you already have a `compose.yaml` file, you only need to add a new service
 
 2. Use `docker compose` to update the running stack:
 
-    ```bash
+    ```bash terminal-id=labspace2
     docker compose up -d
     ```
 
@@ -42,7 +42,7 @@ Since you already have a `compose.yaml` file, you only need to add a new service
 
 3. Open your browser to http://localhost:5050. Note that it may take a moment for the app to startup. If you need to, you can check the logs by using `docker compose logs`:
 
-    ```bash
+    ```bash terminal-id=labspace2
     docker compose logs pgadmin
     ```
 
@@ -76,5 +76,69 @@ If you'd like feel free to make any changes to the database you'd like!
 
 You may be thinking "Wow! This is cool, but I still had to do a few things to set everything up." And you're not wrong! It would be great to provide a seamless experience to our developers.
 
-Many apps provide the ability to provide this configuration at startup, pgAdmin included. That configuration requires a few files to be defined, which go beyond the scope of this training. But, you can define them in the code base and mount them into the pgAdmin container, just as you did for the database containers.
+Many apps provide the ability to provide this configuration at startup, pgAdmin included. That configuration requires a few files to be defined, which you can do with Compose.
 
+[Compose config files](https://docs.docker.com/reference/compose-file/configs/) provide the ability to inject files into a container, most often used for configuration.
+
+To configure pgAdmin, you need to define a `servers.json` file that provides the configuration for the database server and then a `pgpass` file that provides the credentials.
+
+1. In the `compose.yaml` file, add the following to define the a config file named `pgadmin-server-config:
+
+    ```yaml
+    configs:
+      pgadmin-server-config:
+        content: |
+          {
+            "Servers": {
+              "1": {
+                "Name": "Local Postgres",
+                "Group": "Servers",
+                "Host": "db",
+                "Port": 5432,
+                "MaintenanceDB": "postgres",
+                "Username": "postgres",
+                "PassFile": "/config/pgpass"
+              }
+            }
+          }
+    ```
+
+2. Add a second config file to provide the contents of the `pgpass` file for pgAdmin to use:
+
+    ```yaml
+    configs:
+      pgadmin-pgpass:
+        content: |
+          db:5432:*:postgres:secret
+    ```
+
+3. Update the `pgadmin` service to inject the config files:
+
+    ```yaml
+    services:
+      pgadmin:
+        ...
+        configs:
+          - source: pgadmin-server-config
+            target: /pgadmin4/servers.json
+            mode: 0444
+          - source: pgadmin-pgpass
+            target: /config/pgpass
+            uid: "5050"
+            gid: "5050"
+            mode: 0400
+    ```
+
+4. To prove everything works from a clean slate, first tear down the stack:
+
+    ```bash terminal-id=labspace2
+    docker compose down
+    ```
+
+    And then restart it:
+
+    ```bash terminal-id=labspace2
+    docker compose up -d
+    ```
+
+    Once pgAdmin starts up, you should be able to open [http://localhost:5050](http://localhost:5050) the database immediately without needing to do any pre-configuration!

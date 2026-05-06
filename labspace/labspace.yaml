@@ -18,3 +18,8 @@ sections:
     contentPath: 04-adding-dev-tools.md
   - title: Recap
     contentPath: 05-recap.md
+
+services:
+  - url: http://localhost:3000
+    title: App
+    icon: globe

@@ -44,7 +44,7 @@ If you haven't done so, open the VS Code environment in the panel on the right.
 
     This will start the app using `nodemon`, which will automatically restart the app when changes are made.
 
-3. Open your browser to http://localhost:3000. Instead of the app, you should see the following error:
+3. Open your browser to :tabLink[http://localhost:3000]{href="http://localhost:3000" id="app"}. Instead of the app, you should see the following error:
 
     ```plaintext no-copy-button
     Error: connect ECONNREFUSED 127.0.0.1:5432
@@ -68,7 +68,10 @@ In order to run a container, you need a container image. Fortunately, there is a
 1. Use the `docker run` command in a terminal to start a PostgreSQL container:
 
     ```bash terminal-id=labspace2
-    docker run -d --name=postgres -p 5432:5432 -e POSTGRES_PASSWORD=secret postgres:18-alpine
+    docker run -d --name=postgres \
+        -p 5432:5432 \
+        -e POSTGRES_PASSWORD=secret \
+        postgres:18-alpine
     ```
 
    This command is using the following flags:
@@ -83,7 +86,7 @@ In order to run a container, you need a container image. Fortunately, there is a
 
 2. To see a list of running containers, use the `docker ps` command:
 
-    ```console
+    ```console terminal-id=labspace2
     docker ps
     ```
 
@@ -113,9 +116,9 @@ Now that the container is up and running, it's time to update the app to connect
     PGDATABASE=postgres
     ```
 
-    This will tell the app to connect to `localhost:5432` (remember, we're exposing the container's port) and using the default username with the password we supplied.
+    This will tell the app to connect to `localhost:5432` (remember, we're publishing the container's port on our machine) and using the default username with the password we supplied.
     
-2. With the database running and the app configured, the app should work, right? But, opening [the site](http://localhost:3000) now gives another error:
+2. With the database running and the app configured, the app should work, right? But, opening :tabLink[the site]{href="http://localhost:3000" id="app"} now gives another error:
 
     ```plaintext no-copy-button
     error: relation "memes" does not exist
@@ -136,7 +139,7 @@ In the following steps, you are going to create the schema files and provide the
 
 1. In the project, create a folder named `db`. You can either do so using the IDE directly or by running the following command:
 
-    ```bash
+    ```bash terminal-id=labspace2
     mkdir db
     ```
 
@@ -165,7 +168,7 @@ In the following steps, you are going to create the schema files and provide the
 
 4. Bind mounts can't be added to a container after it's been started. Therefore, you'll need to restart the container. First remove the existing container with the `docker rm` command:
 
-    ```bash
+    ```bash terminal-id=labspace2
     docker rm -f postgres
     ```
 
@@ -173,7 +176,7 @@ In the following steps, you are going to create the schema files and provide the
 
 5. Use the following command to share the schema files from your workspace into the container with a bind mount:
 
-    ```bash
+    ```bash terminal-id=labspace2
     docker run -d --name=postgres \
         -p 5432:5432 \
         -v ./db:/docker-entrypoint-initdb.d \
@@ -187,7 +190,7 @@ In the following steps, you are going to create the schema files and provide the
 
 6. Once the container is running, confirm the data exists in the database, use the following `psql` command:
 
-    ```bash
+    ```bash terminal-id=labspace2
     psql -h localhost -U postgres -c "SELECT * FROM memes"
     ```
 
@@ -204,7 +207,7 @@ In the following steps, you are going to create the schema files and provide the
 
     Hooray! The database is populated and ready to go!
 
-4. Go back to the app (at http://localhost:3000) and validate it works now.
+4. Go back to the app (at :tabLink[http://localhost:3000]{href="http://localhost:3000" id="app"}) and validate it works now.
 
 
 
